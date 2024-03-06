@@ -8,7 +8,7 @@ function App() {
     // Vlag, naam van het land en het aantal inwoners wordt opgehaald wanneer de gebruiker op een knop drukt. Wanneer er resultaten op de pagina worden getoond verdwijnt de knop.
 
     const [countries, setCountries] = useState([]);
-    const [country, setCountry] = useState([]);
+    const [specificCountry, setSpecificCountry] = useState([]);
 
     function translateRegionToColor(region) {
         let color = '';
@@ -22,6 +22,8 @@ function App() {
             color = "p-red";
         } else if (region === 'Oceania') {
             color = "p-purple";
+        } else if (region === 'Antarctic') {
+            color = "p-lightblue";
         }
         return color;
     }
@@ -40,8 +42,9 @@ function App() {
 
     async function searchCountry() {
         try {
-            const response = await axios.get('https://restcountries.com/v3.1/name/netherlands');
-            console.log(response.data);
+            const response = await axios.get('https://restcountries.com/v3.1/name/netherlands?fullText=true');
+            console.log(response.data[0].name.common);
+            console.log(response.data[0].capital[0]);
         } catch (error) {
             console.error(error);
         }
